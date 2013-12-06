@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="http://getbootstrap.com/docs-assets/ico/favicon.png">
+    <link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic,300|Dosis:400,700' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+
+    <title>ASK Fast Developer Modules</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy this line! -->
+    <!--[if lt IE 9]><script src="../../docs-assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-inverse" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#"><img src="img/logo.png" width="166" height="30" alt="ASK fast"></a>
+        </div>
+        
+      </div>
+    </div>
+
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+      <div class="container">
+      <div class="row">
+      <div class="col-md-12">
+        <div class="member-area pull-right">
+      <a href="#" class="signup">Create developer account</a> <a href="#" class="login">Login</a>
+      
+      </div> <!--end / member area-->
+      </div>
+      </div>
+      <div class="row">
+     
+      <div class="col-md-5">
+      
+      <div class="verify">
+      <div class="fixed-left">
+      <a href="#" class="sprite verify-icon active">verify</a>
+      <a href="#" class="sprite broadcast-icon">broadcast</a>
+      <a href="#" class="sprite traking-icon">Number traking</a>
+      <a href="#" class="sprite click-icon">click 2 call</a>
+      </div>
+      </div>
+      
+      
+      </div> <!--end / col-md-5-->
+      <div class="col-md-7 pull-right">
+     
+      <h1>VerifyMe</h1>
+      <p>VerifyMe is used for verifying E-mail, Mobile and Landline phone of a user or a system. 
+It has two processes (Initiate and Verify) to understand if the number is which a REST API imlemented for these two processes.</p>
+<h5>Initiate</h5>
+<p>This REST call initiates a dialog to push (by text or audio) the random verification code to the phonenumber specified </p>
+
+<pre><span class="white-txt">POST</span> &lt;hostname&gt;<span class="white-txt">/products/verifyme/initiate</span>
+<span class="white-txt">{</span>
+     "verficationMedium"<span class="white-txt">:</span> "SMS | Call | Email | Auto"<span class="white-txt">:</span>
+     "verificationInfo"<span class="white-txt">: {</span>
+        "address"<span class="white-txt">:</span> "&lt;address&gt;"<span class="white-txt">,</span>
+        "message"<span class="white-txt">:</span> "&lt;message&gt;"<span class="white-txt">,</span>
+        "subject"<span class="white-txt">:</span> "&lt;subject&gt;"<span class="white-txt">,</span>
+        "senderName"<span class="white-txt">:</span> "&lt;sender name&gt;"
+     <span class="white-txt">},</span>
+     "sessionTimeoutInSecs"<span class="white-txt">:</span> &lt;timeout&gt;<span class="white-txt">,</span>
+     "verificationCodeLength"<span class="white-txt">:</span> &lt;codeLength&gt;
+<span class="white-txt">}</span>
+</pre> <!--end / pre-->
+<p><span class="pink-txt">verificationMedium:</span> medium used to send/play the verification code. Auto is an option which 
+automatically predicts the medium based on the address field:</p>
+<p><span class="pink-txt">address:</span> medium used to send/play the verification code. </p>
+<p>Mobile number, an SMS triggered. <br>
+Fixedline number, a automated phone call is triggered. <br>
+For anything else, an Email is triggered.</p>
+
+<p><span class="pink-txt">message:</span> This is parsed for a maching “[code]”. If found [code] is replaced by the random code that is generated.<br>
+If not, the message is appended with &ldquo;Code: <randomCode>&rdquo;. 
+For a Phone call, this audio URL is played before playing out the random code. </p>
+<p><span class="pink-txt">sessionTimeoutInSecs:</span> This is the maximum time until which a verify API call is valid. Default value is 180s, incase this field is left empty/null.</p>
+<p><span class="pink-txt">verificationCodeLength:</span> This is the length of the random number that has to be generated. Default value is 4, incase this field is left empty/null.
+</p>
+
+<pre><span class="white-txt">POST</span> &lt;hostname&gt;<span class="white-txt">/products/verifyme/initiate</span>
+<span class="white-txt">{</span>
+     "verificationMedium"<span class="white-txt">:</span> "SMS"<span class="white-txt">,</span>
+     "verificationInfo"<span class="white-txt">: { </span>
+     	"address"<span class="white-txt">:</span> "&lt;address&gt;"<span class="white-txt">,</span>
+        "message"<span class="white-txt">:</span> "Following is your verification code: [code]"<span class="white-txt">,</span>
+        "subject"<span class="white-txt">:</span> "oneline verification"<span class="white-txt">,</span>
+        "senderName"<span class="white-txt">:</span> "online"
+     <span class="white-txt">}</span>
+<span class="white-txt">}</span>
+
+</pre> <!--end / pre-->
+
+<h2>Response</h2>
+<p>The following response is generated on success. The <span class="pink-txt">initiateResponse</span> field indicates if there was an error in initiating the verification. If it is successful, a <span class="pink-txt">verificationInfo</span> is also sent in the same response, which gives some extra details about the address being verified. </p>
+<pre><span class="white-txt">POST</span> &lt;hostname&gt;<span class="white-txt">/products/verifyme/initiate</span>
+<span class="white-txt">{</span>
+
+</pre> <!--end / pre-->
+<p><span class="pink-txt">verificationStartTimestamp:</span> timestamp in millis when this verification step was initiated.</p>
+<p><span class="pink-txt">adapterConfigId:</span> corresponding adapter used to perform the step. This is useful when 
+multiple adapters can be used to perform the step. E.g. multiple XMPP adapters. </p>
+<p><span class="pink-txt">verified:</span> if the address is verified already or not. </p>
+<p><span class="pink-txt">id:</span> a unique Id generated to mark this verification step. This is used in the Verify step 
+explained below. </p>
+<h2>Verify</h2>
+<p>This API validates the random verification code provided by the user. Note that, to be validated successfully, this API has to be triggered before the sessionTimeoutInSecs field defined in the initiate step above. </p>
+<pre><span class="white-txt">POST</span> &lt;hostname&gt;<span class="white-txt">/products/verifyme/initiate</span>
+<span class="white-txt">{</span>
+
+</pre> <!--end / pre-->
+
+      </div> <!--end / col-md-7-->
+      </div>
+        
+        
+      </div>
+    </div>
+
+ 
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <!--<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>-->
+    <script src="js/jquery-1.10.2.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+  
+
+</body></html>
